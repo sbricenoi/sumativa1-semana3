@@ -1,8 +1,5 @@
 package com.duoc.recetas.config;
 
-import com.duoc.recetas.model.Rol;
-import com.duoc.recetas.model.Usuario;
-import com.duoc.recetas.repository.RolRepository;
 import com.duoc.recetas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,9 +17,6 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
-    @Autowired
-    private RolRepository rolRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
