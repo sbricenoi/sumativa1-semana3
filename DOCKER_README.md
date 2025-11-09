@@ -83,11 +83,11 @@ Define los servicios Docker:
 
 ## 🚀 Inicio Rápido
 
-### Opción 1: Usar Scripts (Recomendado)
+### Para macOS / Windows
 
 ```bash
 # 1. Ir al directorio del proyecto
-cd "/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3"
+cd "ruta/del/proyecto"
 
 # 2. Iniciar servicios Docker
 ./docker-start.sh
@@ -97,6 +97,24 @@ cd "/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3"
 # 4. Iniciar la aplicación Spring Boot
 mvn spring-boot:run -Dspring-boot.run.profiles=docker
 ```
+
+### Para Linux (Recomendado)
+
+```bash
+# 1. Ir al directorio del proyecto
+cd "ruta/del/proyecto"
+
+# 2. Dar permisos de ejecución (solo primera vez)
+chmod +x docker-start-linux.sh
+
+# 3. Iniciar servicios Docker
+./docker-start-linux.sh
+
+# La aplicación se construirá e iniciará automáticamente
+# Accede a: http://localhost:8082
+```
+
+**Nota para Linux:** Si encuentras errores de DNS, consulta el archivo `TROUBLESHOOTING_LINUX.md`
 
 ### Opción 2: Comandos Manuales
 

@@ -7,10 +7,18 @@ WORKDIR /app
 
 # Instalar Maven (última versión)
 ARG MAVEN_VERSION=3.9.9
-RUN wget https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz -P /tmp \
-    && tar xf /tmp/apache-maven-${MAVEN_VERSION}-bin.tar.gz -C /opt \
-    && ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven \
-    && rm /tmp/apache-maven-${MAVEN_VERSION}-bin.tar.gz
+
+# Configurar DNS y instalar Maven con reintentos
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
+    echo "nameserver 8.8.4.4" >> /etc/resolv.conf && \
+    apt-get update && \
+    apt-get install -y wget curl && \
+    for i in 1 2 3; do \
+        wget --timeout=30 --tries=3 https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz -P /tmp && break || sleep 5; \
+    done && \
+    tar xf /tmp/apache-maven-${MAVEN_VERSION}-bin.tar.gz -C /opt && \
+    ln -s /opt/apache-maven-${MAVEN_VERSION} /opt/maven && \
+    rm /tmp/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
 ENV M2_HOME=/opt/maven
 ENV MAVEN_HOME=/opt/maven
