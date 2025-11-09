@@ -18,7 +18,6 @@ ENV PATH=${M2_HOME}/bin:${PATH}
 
 # Copiar archivos de configuración Maven
 COPY pom.xml .
-COPY .mvn .mvn
 
 # Descargar dependencias (se cachea esta capa)
 RUN mvn dependency:go-offline -B
