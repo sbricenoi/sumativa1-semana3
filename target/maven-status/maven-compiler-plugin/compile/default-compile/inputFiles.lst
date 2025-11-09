@@ -1,14 +1,14 @@
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/config/SecurityConfig.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/controller/RecetaController.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/service/RecetaService.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/controller/HomeController.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/model/Usuario.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/util/PasswordGenerator.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/model/Rol.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/model/Receta.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/repository/RecetaRepository.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/service/UserDetailsServiceImpl.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/config/DataInitializer.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/repository/UsuarioRepository.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/repository/RolRepository.java
-/Users/sbriceno/Documents/DUOC/SEGURIDAD Y CALIDAD/sumativa_1_semana_3/src/main/java/com/duoc/recetas/RecetasApplication.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/RecetasApplication.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/config/DataInitializer.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/config/SecurityConfig.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/controller/HomeController.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/controller/RecetaController.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/model/Receta.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/model/Rol.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/model/Usuario.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/repository/RecetaRepository.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/repository/RolRepository.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/repository/UsuarioRepository.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/service/RecetaService.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/service/UserDetailsServiceImpl.java
+/workspaces/sumativa1-semana3/src/main/java/com/duoc/recetas/util/PasswordGenerator.java
