@@ -20,12 +20,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
  * - Habilitar protección CSRF (Contra A08: CSRF - OWASP Top 10)
  * - Configurar headers de seguridad
  * - Encriptar contraseñas con BCrypt (Contra A02: Cryptographic Failures)
- * 
- * CUMPLIMIENTO OWASP TOP 10:
- * - A01: Broken Access Control - Control de acceso por URLs
- * - A02: Cryptographic Failures - BCrypt para contraseñas
- * - A07: Identification and Authentication Failures - Autenticación robusta
- * - A08: Software and Data Integrity Failures - CSRF tokens
  */
 @Configuration
 @EnableWebSecurity
@@ -52,7 +46,6 @@ public class SecurityConfig {
                 
                 // Recursos estáticos públicos
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
-                .requestMatchers("/favicon.ico").permitAll()
                 
                 // URLs PRIVADAS - Requieren autenticación
                 .requestMatchers("/recetas/detalle/**").authenticated()
@@ -80,33 +73,47 @@ public class SecurityConfig {
                 .deleteCookies("JSESSIONID")            // Elimina cookies
                 .permitAll()
             )
-            
-            // PROTECCIÓN CSRF - CRÍTICO PARA OWASP A08
-            // CSRF (Cross-Site Request Forgery) es una vulnerabilidad del OWASP Top 10
-            // NO DESHABILITAR EN PRODUCCIÓN
-            .csrf(csrf -> csrf
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                // El token CSRF se almacena en una cookie accesible desde JavaScript
-                // pero marcada como HttpOnly para mayor seguridad
-            )
-            
-            // Headers de seguridad
+
+            .csrf(csrf -> {
+                CookieCsrfTokenRepository tokenRepository = new CookieCsrfTokenRepository();
+                tokenRepository.setCookieCustomizer(cookie -> cookie
+                    .httpOnly(true)
+                    .sameSite("Strict")
+                    .path("/")
+                );
+                csrf.csrfTokenRepository(tokenRepository);
+            })
+
             .headers(headers -> headers
-                // Previene ataques de Clickjacking (OWASP A04)
-                .frameOptions(frame -> frame.sameOrigin())
-                
-                // XSS Protection está habilitado por defecto en Spring Security 6
-                // Ya no se requiere configuración manual
-                
+                .contentSecurityPolicy(csp -> csp
+                    .policyDirectives(
+                        "default-src 'self'; " +
+                        "script-src 'self'; " +
+                        "style-src 'self'; " +
+                        "img-src 'self' data:; " +
+                        "font-src 'self'; " +
+                        "connect-src 'self'; " +
+                        "frame-ancestors 'none'; " +
+                        "base-uri 'self'; " +
+                        "form-action 'self'"
+                    )
+                )
+
                 // Previene MIME sniffing
-                .contentTypeOptions(contentTypeOptions -> contentTypeOptions.disable())
+                .contentTypeOptions(contentType -> {})
                 
-                // HTTP Strict Transport Security (forzar HTTPS en producción)
-                // Descomentar en producción con HTTPS
-                // .httpStrictTransportSecurity(hsts -> hsts
-                //     .maxAgeInSeconds(31536000)
-                //     .includeSubDomains(true)
-                // )
+                // Clickjacking - Previene ataques de frame
+                .frameOptions(frame -> frame.deny())
+                
+                // Referrer Policy
+                .referrerPolicy(referrer -> referrer
+                    .policy(org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.NO_REFERRER)
+                )
+                
+                // X-Permitted-Cross-Domain-Policies
+                .permissionsPolicy(permissions -> permissions
+                    .policy("geolocation=(), microphone=(), camera=()")
+                )
             )
             
             // Configuración de sesión
@@ -146,5 +153,18 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+    /**
+     * Configurador de cookies para solucionar alertas de ZAP.
+     * 
+     * Cookie Sin Flag HttpOnly (7)
+     * Cookie sin el atributo SameSite (13)
+     * 
+     * @return Customizer para configuración de cookies
+     */
+    @Bean
+    public org.springframework.boot.web.servlet.server.CookieSameSiteSupplier cookieSameSiteSupplier() {
+        return org.springframework.boot.web.servlet.server.CookieSameSiteSupplier.ofStrict();
     }
 }
