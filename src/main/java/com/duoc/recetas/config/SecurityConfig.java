@@ -90,7 +90,7 @@ public class SecurityConfig {
                         "default-src 'self'; " +
                         "script-src 'self'; " +
                         "style-src 'self'; " +
-                        "img-src 'self' data:; " +
+                        "img-src 'self' data: https://images.unsplash.com; " +
                         "font-src 'self'; " +
                         "connect-src 'self'; " +
                         "frame-ancestors 'none'; " +

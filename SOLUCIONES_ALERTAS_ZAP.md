@@ -137,7 +137,7 @@ public class SecurityHeadersFilter implements Filter {
 - `default-src 'self'`: Solo permite recursos del mismo origen
 - `script-src 'self'`: Scripts solo desde el mismo dominio (previene XSS)
 - `style-src 'self'`: **SOLO estilos externos, sin 'unsafe-inline'** (corregido)
-- `img-src 'self' data:`: Imágenes del mismo origen + data URIs
+- `img-src 'self' data: https://images.unsplash.com`: Imágenes del mismo origen + data URIs + Unsplash
 - `font-src 'self'`: Fuentes solo del mismo dominio
 - `connect-src 'self'`: Conexiones AJAX/Fetch solo al mismo origen
 - `frame-ancestors 'none'`: Previene clickjacking
@@ -155,12 +155,12 @@ curl -I http://localhost:8082/ | grep -i "content-security-policy"
 
 Debe mostrar:
 ```
-Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; ...
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://images.unsplash.com; ...
 ```
 
 **Archivos modificados:**
-- `SecurityConfig.java`: Removido `'unsafe-inline'` de `style-src`
-- `SecurityHeadersFilter.java`: Removido `'unsafe-inline'` de `style-src`
+- `SecurityConfig.java`: Removido `'unsafe-inline'` de `style-src`, agregado `https://images.unsplash.com` a `img-src`
+- `SecurityHeadersFilter.java`: Removido `'unsafe-inline'` de `style-src`, agregado `https://images.unsplash.com` a `img-src`
 - `buscar.html`, `index.html`, `detalle.html`: Convertido `style="display: inline;"` a clase CSS
 - `style.css`: Agregado `.logout-form { display: inline; }`
 
